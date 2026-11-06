@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AFTERLIGHT · Deadlock companion</title>
+<meta name="description" content="Free Deadlock companion for Windows: live board, smooth 60 fps clip recording with sound, match reviews and a Discord status with your hero.">
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="AFTERLIGHT">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><path fill-rule="evenodd" d="M60.6 2C65.3 41.8 69 44.5 95.2 40.9C70.8 50.2 69.9 53.6 78.4 65.8C64.7 57.9 57.6 61.6 4.8 98C50.2 53.9 53.8 48.4 36.7 35C56.5 43.5 59.4 41.7 60.6 2ZM44 65.1Q65.8 53.9 71 42.4Q61.7 49 44 65.1Z"/></svg>
+    <span>AFTERLIGHT</span>
+  </a>
+  <nav class="links" aria-label="Sections">
+    <a href="#features">Features</a><a href="#demo">Try it</a><a href="#clips">Clips</a><a href="#discord">Discord</a><a href="#updates">Patch notes</a><a href="#faq">FAQ</a>
+  </nav>
+  <a class="btn small" data-download href="#">Download</a>
+</header>
+
+<main id="top">
+  <!-- HERO: a dark street, the cursor is a lantern -->
+  <section class="street" id="street">
+    <div class="lineup" aria-hidden="true">
+      <img class="h h1" src="assets/render-7.webp" alt="">
+      <img class="h h2" src="assets/render-1.webp" alt="">
+      <img class="h h3" src="assets/render-13.webp" alt="">
+      <img class="h h4" src="assets/render-4.webp" alt="">
+      <img class="h h5" src="assets/render-15.webp" alt="">
+    </div>
+    <div class="dark" aria-hidden="true"></div>
+    <div class="lamp" aria-hidden="true"></div>
+    <h1 class="wordmark" id="wordmark" aria-label="AFTERLIGHT"><span aria-hidden="true">Afterlight</span></h1>
+    <div class="street-copy">
+      <p class="sub">Every Deadlock match recorded in smooth 60&nbsp;fps, cut into scored clips and explained afterwards. Free for Windows, made by players.</p>
+      <div class="cta-row">
+        <a class="btn" data-download href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4.5 10.5 3.4v8.1H3zm0 15 7.5 1.1v-8.1H3zM11.6 3.3 21 2v9.5h-9.4zm0 17.4L21 22v-9.4h-9.4z"/></svg>Download for Windows</a>
+        <a class="btn ghost" href="#demo">Try the app in your browser</a>
+      </div>
+      <p class="fine"><span id="heroVersion">Latest version</span> for Windows 10 and 11. Not affiliated with Valve.</p>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE DEMO -->
+  <section class="demo-wrap" id="demo">
+    <h2 class="sec-title">Click through the app before you install it.</h2>
+    <div class="app" id="app">
+      <div class="app-bar"><span class="tl"></span><span class="tl"></span><span class="tl"></span><b>AFTERLIGHT</b><small id="appTitle">Profile</small></div>
+      <aside class="rail" role="tablist" aria-label="App pages">
+        <button role="tab" data-page="profile" aria-selected="true" title="Profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg></button>
+        <button role="tab" data-page="live" title="Live board"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4m8.4 0a6 6 0 0 0 0-8.4M5 5a10 10 0 0 0 0 14m14 0a10 10 0 0 0 0-14"/></svg><i class="live-dot"></i></button>
+        <button role="tab" data-page="review" title="Match review"><svg viewBox="0 0 24 24"><path d="M4 18V6m5 12V9m5 9v-5m5 5V4"/></svg></button>
+        <button role="tab" data-page="clips" title="Clips"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><em>6</em></button>
+        <button role="tab" data-page="discord" title="Discord status"><svg viewBox="0 0 24 24"><path d="M8 7c-2 .5-3.2 1.3-3.6 1.8C3 11.5 3 15 3.4 17c1.5 1.2 3 1.8 4.4 2l1-1.5M16 7c2 .5 3.2 1.3 3.6 1.8 1.4 2.7 1.4 6.2 1 8.2-1.5 1.2-3 1.8-4.4 2l-1-1.5M7.5 16.5c3 1.4 6 1.4 9 0"/><circle cx="9" cy="12.5" r="1"/><circle cx="15" cy="12.5" r="1"/></svg></button>
+      </aside>
+      <div class="screen" id="screen" aria-live="polite"></div>
+      <p class="hint" id="hint">Click around: everything here works like in the app.</p>
+    </div>
+  </section>
+
+  <!-- FACTS -->
+  <section class="facts" aria-label="Facts">
+    <div><b>60</b><span>fps GPU recording,<br>barely any CPU load</span></div>
+    <div><b>3</b><span>sound sources: game, Discord,<br>microphone, each on its own</span></div>
+    <div><b>0 €</b><span>free, no account,<br>no ads, no tracking</span></div>
+    <div><b>1</b><span>click to install,<br>updates arrive by themselves</span></div>
+  </section>
+
+  <!-- FEATURE ROWS (Overwolf-style alternating rows) -->
+  <section class="rows" id="features">
+    <article class="row">
+      <div class="copy"><h2>See the match the way the game shows it. Just clearer.</h2>
+        <p>Both teams with rank, streak and hero experience, the soul lead over time, your pace against the lobby and counter items against the enemy builds. Fair play built in: hidden stats of other players only open after the match.</p>
+        <a class="more" href="#demo" data-go="live">Open the live board</a></div>
+      <div class="visual v-live" aria-hidden="true">
+        <div class="vl-lead"><small>Soul lead</small><b>+4.2k</b><svg viewBox="0 0 300 90" preserveAspectRatio="none"><path class="area" d="M0 70 C40 66 60 72 90 58 S140 40 170 48 220 22 250 26 280 12 300 10 V90 H0z"/><path class="line" d="M0 70 C40 66 60 72 90 58 S140 40 170 48 220 22 250 26 280 12 300 10"/></svg></div>
+        <ul class="vl-counters"><li><img src="assets/heroes/15.png" alt=""><span><b>Healbane</b><small>sharply cuts their healing</small></span></li><li><img src="assets/heroes/7.png" alt=""><span><b>Spirit Armor</b><small>less spirit damage</small></span></li></ul>
+      </div>
+    </article>
+    <article class="row flip" id="clips">
+      <div class="copy"><h2>Every kill clipped. Every clip scored.</h2>
+        <p>The game is recorded on your graphics card in smooth 60 fps, with sound from Deadlock, Discord and your microphone if you want. Kills, multi-kills and clutches become clips automatically, each with a score and a tier from Okay to Legendary.</p>
+        <a class="more" href="#demo" data-go="clips">See the clips</a></div>
+      <div class="visual v-clips" aria-hidden="true">
+        <div class="vc-card"><img src="assets/render-4.webp" alt=""><span class="tier t-legendary"><b>Legendary</b><i>350</i></span></div>
+        <div class="vc-pop"><header><b>Legendary</b><span>350 <small>pts</small></span></header><ul><li><i></i>Kills <small>2 ×</small><em>+200</em></li><li><i></i>Double kill<em>+60</em></li><li><i></i>Objective <small>walker</small><em>+90</em></li></ul></div>
+      </div>
+    </article>
+    <article class="row">
+      <div class="copy"><h2>Understand why the match went the way it did.</h2>
+        <p>A timeline with every kill, death and objective, your rank per stat in the lobby, your strongest and weakest phase and plain-language findings. Rule-based, honest, no made-up numbers.</p>
+        <a class="more" href="#demo" data-go="review">Scrub through a match</a></div>
+      <div class="visual v-review" aria-hidden="true">
+        <div class="vr-grid"><div><b>1<small>/12</small></b><span>Souls / min</span><i style="--w:96%"></i></div><div><b>1<small>/12</small></b><span>Damage / min</span><i style="--w:92%"></i></div><div><b>3<small>/12</small></b><span>KDA</span><i style="--w:78%"></i></div><div><b>9<small>/12</small></b><span>Healing</span><i style="--w:28%"></i></div></div>
+        <p class="vr-find"><b>Soul lead extended until the end</b><span>End +11.4k · lowest point −3.1k (03:50)</span></p>
+      </div>
+    </article>
+    <article class="row flip" id="discord">
+      <div class="copy"><h2>Your hero on your profile. Your words under it.</h2>
+        <p>Your hero picture, K/D/A and souls live, “Won as Haze” after the match and the hero lines from the Hideout, just like on Steam. Write your own lines for wins, losses and every hero. Turn it on, done: no login, no linking.</p>
+        <a class="more" href="#demo" data-go="discord">Write your own line</a></div>
+      <div class="visual v-discord" aria-hidden="true">
+        <div class="dc"><small>Playing</small><div class="dc-row"><span class="dc-art"><img src="assets/heroes/13.png" alt=""><i><svg viewBox="0 0 100 100"><path fill-rule="evenodd" d="M60.6 2C65.3 41.8 69 44.5 95.2 40.9C70.8 50.2 69.9 53.6 78.4 65.8C64.7 57.9 57.6 61.6 4.8 98C50.2 53.9 53.8 48.4 36.7 35C56.5 43.5 59.4 41.7 60.6 2Z"/></svg></i></span><span class="dc-text"><b>AFTERLIGHT</b><span>Won as Haze · 14/4/9</span><span>Easy.</span></span></div></div>
+        <div class="dc"><small>Playing</small><div class="dc-row"><span class="dc-art"><img src="assets/heroes/1.png" alt=""><i><svg viewBox="0 0 100 100"><path fill-rule="evenodd" d="M60.6 2C65.3 41.8 69 44.5 95.2 40.9C70.8 50.2 69.9 53.6 78.4 65.8C64.7 57.9 57.6 61.6 4.8 98C50.2 53.9 53.8 48.4 36.7 35C56.5 43.5 59.4 41.7 60.6 2Z"/></svg></i></span><span class="dc-text"><b>AFTERLIGHT</b><span>Mixing Drinks In The Hideout</span><span>Hanging out as Infernus</span><span class="dc-time">0:58 elapsed</span></span></div></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- PATCH NOTES -->
+  <section class="updates" id="updates">
+    <div class="sec-head"><h2>Recent updates</h2><p>The app installs them by itself. Here is what changed lately.</p></div>
+    <div class="notes" id="notes"><p class="loading">Loading the latest releases …</p></div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="sec-head"><h2>Questions players ask</h2></div>
+    <details><summary>Does AFTERLIGHT give me an unfair advantage?</summary><p>No. During a match it only shows what Deadlock shows you too: K/D/A, souls, items and the kill feed. Damage, healing, objective damage, last hits and denies of other players only open after the match. AFTERLIGHT never writes into the game and never automates input.</p></details>
+    <details><summary>Is it free? Do I need an account?</summary><p>It is free, without an account, ads or tracking. Your matches, recordings and clips stay on your PC in the “Afterlight Data” folder.</p></details>
+    <details><summary>Is this made by Valve?</summary><p>No. AFTERLIGHT is an independent community project and is not affiliated with, endorsed or sponsored by Valve. Deadlock is a trademark of Valve Corporation.</p></details>
+    <details><summary>What does it need?</summary><p>Windows 10 (version 2004 or newer) or Windows 11 and a graphics card with a hardware encoder (NVIDIA, AMD or Intel) for the smooth GPU recording.</p></details>
+    <details><summary>What is shared, and with whom?</summary><p>Only if community tracking is on: the match ID and replay access data of your own matches go to the community-run Deadlock API, so trackers can show your match. Videos, events and logins never leave your PC. You can turn it off any time.</p></details>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <svg class="final-mark" viewBox="0 0 100 100" aria-hidden="true"><path fill-rule="evenodd" d="M60.6 2C65.3 41.8 69 44.5 95.2 40.9C70.8 50.2 69.9 53.6 78.4 65.8C64.7 57.9 57.6 61.6 4.8 98C50.2 53.9 53.8 48.4 36.7 35C56.5 43.5 59.4 41.7 60.6 2ZM44 65.1Q65.8 53.9 71 42.4Q61.7 49 44 65.1Z"/></svg>
+    <h2>Your next match records itself.</h2>
+    <a class="btn" data-download href="#">Download for Windows</a>
+    <p class="fine">Free for Windows 10 and 11. The setup takes two clicks.</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div><b>AFTERLIGHT</b><p>Independent community project. Not affiliated with, endorsed or sponsored by Valve Corporation. Deadlock, Steam and the hero names and art are trademarks or copyrighted material of Valve Corporation.</p></div>
+  <nav aria-label="Legal"><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://github.com/prodbycooooooollin-byte/afterlight-releases/releases" rel="noopener">All releases</a></nav>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
