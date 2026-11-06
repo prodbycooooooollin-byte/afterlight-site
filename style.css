@@ -271,3 +271,6 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:.92;letter-spaci
 .btn.paused{background:var(--soot-3);color:var(--smoke);box-shadow:0 0 0 1px var(--rule) inset;cursor:not-allowed}
 .btn.paused:hover{background:var(--soot-3);box-shadow:0 0 0 1px var(--rule) inset}
 .paused-note{color:var(--lamp)!important}
+
+.final .cta-row{justify-content:center}
+.faq a.inline{color:var(--lamp);text-decoration:underline;text-underline-offset:3px}
