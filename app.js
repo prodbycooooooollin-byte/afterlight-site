@@ -14,46 +14,21 @@
   $$('.row, .facts div, .note, .sec-head, .final > *').forEach(el => { el.classList.add('reveal'); io.observe(el); });
   const app = $('#app');
   new IntersectionObserver(es => es.forEach(e => app.classList.toggle('flat', e.intersectionRatio > .35)), { threshold: [0, .35, .7] }).observe(app);
-  // ---------- the lantern: one light that reveals the street and lights the wordmark ----------
-  const street = $('#street'), word = $('#wordmark span');
-  if (street && word) {
-    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cur = { x: -.2, y: .5 }, goal = { x: -.2, y: .5 };
-    let mode = 'sweep', t0 = performance.now(), lastMove = 0, raf = 0;
-    const paint = () => {
-      const r = street.getBoundingClientRect(), x = cur.x * r.width, y = cur.y * r.height;
-      street.style.setProperty('--mx', `${x}px`); street.style.setProperty('--my', `${y}px`);
-      const w = word.getBoundingClientRect();
-      word.style.setProperty('--lx', `${x + r.left - w.left}px`); word.style.setProperty('--ly', `${y + r.top - w.top}px`);
+  // ---------- hero depth: the lineup shifts a little with the mouse, front heroes more than back ones ----------
+  const street = $('#street');
+  if (street) {
+    const cur = { x: 0, y: 0 }, goal = { x: 0, y: 0 }; let raf = 0;
+    const tick = () => {
+      cur.x += (goal.x - cur.x) * .08; cur.y += (goal.y - cur.y) * .08;
+      street.style.setProperty('--px', cur.x.toFixed(4)); street.style.setProperty('--py', cur.y.toFixed(4));
+      raf = Math.abs(goal.x - cur.x) + Math.abs(goal.y - cur.y) > .0005 ? requestAnimationFrame(tick) : 0;
     };
-    const tick = now => {
-      raf = 0;
-      if (mode === 'sweep') {
-        const p = Math.min(1, (now - t0) / 2400), e = 1 - Math.pow(1 - p, 3);
-        cur.x = goal.x = -.15 + e * .7; cur.y = goal.y = .62 - Math.sin(e * Math.PI) * .2;
-        if (p >= 1) { mode = 'drift'; t0 = now; }
-      } else if (mode === 'drift') {
-        const s = (now - t0) / 1000;
-        goal.x = .55 + Math.sin(s * .35) * .3; goal.y = .5 + Math.sin(s * .53) * .14;
-      }
-      if (mode !== 'sweep') { cur.x += (goal.x - cur.x) * .09; cur.y += (goal.y - cur.y) * .09; }
-      if (mode === 'follow' && !still && now - lastMove > 4000) { mode = 'drift'; t0 = now - 1000 * Math.asin(Math.max(-1, Math.min(1, (cur.x - .55) / .3))) / .35; }
-      paint();
-      // with reduced motion the light only moves when the visitor moves the mouse, so stop once it has arrived
-      const settled = still && Math.abs(goal.x - cur.x) < .001 && Math.abs(goal.y - cur.y) < .001;
-      if (street.dataset.vis !== '0' && !settled) raf = requestAnimationFrame(tick);
-    };
-    const start = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    // a moving light is answering the visitor's own mouse, so it runs with reduced motion too; only the sweep and drift are skipped
-    if (still) { mode = 'follow'; cur.x = goal.x = .7; cur.y = goal.y = .45; paint(); }
     street.addEventListener('pointermove', e => {
       if (e.pointerType === 'touch') return;
-      const r = street.getBoundingClientRect(); goal.x = (e.clientX - r.left) / r.width; goal.y = (e.clientY - r.top) / r.height;
-      if (mode !== 'sweep') mode = 'follow'; lastMove = performance.now(); start();
+      const r = street.getBoundingClientRect(); goal.x = (e.clientX - r.left) / r.width - .5; goal.y = (e.clientY - r.top) / r.height - .5;
+      if (!raf) raf = requestAnimationFrame(tick);
     }, { passive: true });
-    new IntersectionObserver(([e]) => { street.dataset.vis = e.isIntersecting ? '1' : '0'; if (e.isIntersecting) start(); }).observe(street);
-    addEventListener('resize', paint, { passive: true });
-    if (!still) start();
+    street.addEventListener('pointerleave', () => { goal.x = goal.y = 0; if (!raf) raf = requestAnimationFrame(tick); });
   }
 
   // ---------- demo data (sample match, like the app's own preview data) ----------
