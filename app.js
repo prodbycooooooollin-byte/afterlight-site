@@ -9,7 +9,7 @@
 
   // ---------- download, nav, reveal, parallax ----------
   // set to false to open the download again
-  const DOWNLOAD_PAUSED = true;
+  const DOWNLOAD_PAUSED = false;
   if (DOWNLOAD_PAUSED) {
     $$('[data-download]').forEach(a => { a.removeAttribute('href'); a.classList.add('paused'); a.setAttribute('aria-disabled', 'true'); a.lastChild.textContent = a.classList.contains('small') ? 'Paused' : 'Download paused'; });
     $$('.street-copy .fine, .final .fine').forEach(p => { p.textContent = 'The download is paused for a short update. Check back in a little while.'; p.classList.add('paused-note'); });
