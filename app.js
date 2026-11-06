@@ -37,22 +37,23 @@
         goal.x = .55 + Math.sin(s * .35) * .3; goal.y = .5 + Math.sin(s * .53) * .14;
       }
       if (mode !== 'sweep') { cur.x += (goal.x - cur.x) * .09; cur.y += (goal.y - cur.y) * .09; }
-      if (mode === 'follow' && now - lastMove > 4000) { mode = 'drift'; t0 = now - 1000 * Math.asin(Math.max(-1, Math.min(1, (cur.x - .55) / .3))) / .35; }
+      if (mode === 'follow' && !still && now - lastMove > 4000) { mode = 'drift'; t0 = now - 1000 * Math.asin(Math.max(-1, Math.min(1, (cur.x - .55) / .3))) / .35; }
       paint();
-      if (street.dataset.vis !== '0') raf = requestAnimationFrame(tick);
+      // with reduced motion the light only moves when the visitor moves the mouse, so stop once it has arrived
+      const settled = still && Math.abs(goal.x - cur.x) < .001 && Math.abs(goal.y - cur.y) < .001;
+      if (street.dataset.vis !== '0' && !settled) raf = requestAnimationFrame(tick);
     };
     const start = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    if (still) { cur.x = .52; cur.y = .5; paint(); }
-    else {
-      street.addEventListener('pointermove', e => {
-        if (e.pointerType === 'touch') return;
-        const r = street.getBoundingClientRect(); goal.x = (e.clientX - r.left) / r.width; goal.y = (e.clientY - r.top) / r.height;
-        if (mode !== 'sweep') mode = 'follow'; lastMove = performance.now(); start();
-      }, { passive: true });
-      new IntersectionObserver(([e]) => { street.dataset.vis = e.isIntersecting ? '1' : '0'; if (e.isIntersecting) start(); }).observe(street);
-      addEventListener('resize', paint, { passive: true });
-      start();
-    }
+    // a moving light is answering the visitor's own mouse, so it runs with reduced motion too; only the sweep and drift are skipped
+    if (still) { mode = 'follow'; cur.x = goal.x = .7; cur.y = goal.y = .45; paint(); }
+    street.addEventListener('pointermove', e => {
+      if (e.pointerType === 'touch') return;
+      const r = street.getBoundingClientRect(); goal.x = (e.clientX - r.left) / r.width; goal.y = (e.clientY - r.top) / r.height;
+      if (mode !== 'sweep') mode = 'follow'; lastMove = performance.now(); start();
+    }, { passive: true });
+    new IntersectionObserver(([e]) => { street.dataset.vis = e.isIntersecting ? '1' : '0'; if (e.isIntersecting) start(); }).observe(street);
+    addEventListener('resize', paint, { passive: true });
+    if (!still) start();
   }
 
   // ---------- demo data (sample match, like the app's own preview data) ----------
