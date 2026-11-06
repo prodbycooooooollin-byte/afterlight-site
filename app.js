@@ -8,7 +8,12 @@
   const esc = s => String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
 
   // ---------- download, nav, reveal, parallax ----------
-  $$('[data-download]').forEach(a => { a.href = SETUP; a.setAttribute('download', ''); });
+  // set to false to open the download again
+  const DOWNLOAD_PAUSED = true;
+  if (DOWNLOAD_PAUSED) {
+    $$('[data-download]').forEach(a => { a.removeAttribute('href'); a.classList.add('paused'); a.setAttribute('aria-disabled', 'true'); a.lastChild.textContent = a.classList.contains('small') ? 'Paused' : 'Download paused'; });
+    $$('.street-copy .fine, .final .fine').forEach(p => { p.textContent = 'The download is paused for a short update. Check back in a little while.'; p.classList.add('paused-note'); });
+  } else $$('[data-download]').forEach(a => { a.href = SETUP; a.setAttribute('download', ''); });
   const nav = $('#nav'); const onScroll = () => nav.classList.toggle('solid', scrollY > 20); onScroll(); addEventListener('scroll', onScroll, { passive: true });
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
   $$('.row, .facts div, .note, .sec-head, .final > *').forEach(el => { el.classList.add('reveal'); io.observe(el); });
@@ -132,7 +137,7 @@
       const rel = list.filter(r => !r.draft && /^v\d/.test(r.tag_name)).slice(0, 6);
       if (!rel.length) throw 0;
       const latest = rel[0].tag_name.replace(/^v/, '');
-      $('#heroVersion').textContent = `version ${latest}`;
+      const hv = $("#heroVersion"); if (hv) hv.textContent = `version ${latest}`;
       const plain = s => esc(String(s || '').replace(/\*\*/g, '').replace(/`/g, '').replace(/^[-*]\s+/gm, '').replace(/\r?\n+/g, ' ').trim());
       $('#notes').innerHTML = rel.map((r, i) => `<article class="note">${i === 0 ? '<span class="tag">LATEST</span>' : ''}<header><b>${esc(r.tag_name)}</b><time datetime="${r.published_at}">${new Date(r.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time></header><p>${plain(r.body)}</p></article>`).join('');
       $$('.note').forEach(el => { el.classList.add('reveal'); io.observe(el); });
