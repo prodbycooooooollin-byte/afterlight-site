@@ -10,7 +10,7 @@ const PAGES = {
     ['Trademarks', 'AFTERLIGHT is an independent community project and is not affiliated with, endorsed, sponsored or approved by Valve Corporation. Deadlock, Steam, the Deadlock and Steam logos, hero names and game artwork are trademarks or copyrighted material of Valve Corporation.'],
   ]],
   privacy: ['Privacy policy', [
-    ['Controller', 'The operator named in the imprint.'],
+    ['Controller', 'The maintainer of the AFTERLIGHT project. Contact: open an issue at <a href="https://github.com/prodbycooooooollin-byte/afterlight-releases/issues">github.com/prodbycooooooollin-byte/afterlight-releases</a>.'],
     ['This website', 'This site has no cookies, no analytics, no advertising and no tracking. Fonts and images are loaded from this site itself. The hosting provider processes your IP address and the usual request data to deliver the site (Art. 6 (1) (f) GDPR).'],
     ['Patch notes and download', 'To show the latest patch notes, your browser asks the GitHub API (api.github.com, GitHub Inc.) for the releases of AFTERLIGHT. The download button links to GitHub. GitHub receives your IP address for these requests; GitHub’s privacy statement applies.'],
     ['The app', 'What the AFTERLIGHT app processes is described in its own privacy policy, shown in the app on first start and under Settings → About & legal.'],
