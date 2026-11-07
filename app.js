@@ -12,28 +12,28 @@
   const DOWNLOAD_PAUSED = false;
   if (DOWNLOAD_PAUSED) {
     $$('[data-download]').forEach(a => { a.removeAttribute('href'); a.classList.add('paused'); a.setAttribute('aria-disabled', 'true'); a.lastChild.textContent = a.classList.contains('small') ? 'Paused' : 'Download paused'; });
-    $$('.street-copy .fine, .final .fine').forEach(p => { p.textContent = 'The download is paused for a short update. Check back in a little while.'; p.classList.add('paused-note'); });
+    $('.hero-copy .fine, .final .fine').forEach(p => { p.textContent = 'The download is paused for a short update. Check back in a little while.'; p.classList.add('paused-note'); });
   } else $$('[data-download]').forEach(a => { a.href = SETUP; a.setAttribute('download', ''); });
   const nav = $('#nav'); const onScroll = () => nav.classList.toggle('solid', scrollY > 20); onScroll(); addEventListener('scroll', onScroll, { passive: true });
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
-  $$('.row, .facts div, .note, .sec-head, .final > *').forEach(el => { el.classList.add('reveal'); io.observe(el); });
+  // Einblenden beim Scrollen: jedes .reveal-Element einmal, wenn es zu sehen ist
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  $$('.reveal').forEach(el => io.observe(el));
   const app = $('#app');
   new IntersectionObserver(es => es.forEach(e => app.classList.toggle('flat', e.intersectionRatio > .35)), { threshold: [0, .35, .7] }).observe(app);
-  // ---------- hero depth: the lineup shifts a little with the mouse, front heroes more than back ones ----------
-  const street = $('#street');
-  if (street) {
+  // Aktiver Menüpunkt nach Abschnitt
+  const links = $$('.links a'), secs = links.map(l => $(l.getAttribute('href'))).filter(Boolean);
+  const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  secs.forEach(sec => spy.observe(sec));
+  // Hero-Bühne: Maus kippt das App-Fenster und verschiebt die schwebenden Karten; beim Scrollen richtet es sich auf
+  const stage = $('#stage'), calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (stage && !calm) {
     const cur = { x: 0, y: 0 }, goal = { x: 0, y: 0 }; let raf = 0;
-    const tick = () => {
-      cur.x += (goal.x - cur.x) * .08; cur.y += (goal.y - cur.y) * .08;
-      street.style.setProperty('--px', cur.x.toFixed(4)); street.style.setProperty('--py', cur.y.toFixed(4));
-      raf = Math.abs(goal.x - cur.x) + Math.abs(goal.y - cur.y) > .0005 ? requestAnimationFrame(tick) : 0;
-    };
-    street.addEventListener('pointermove', e => {
-      if (e.pointerType === 'touch') return;
-      const r = street.getBoundingClientRect(); goal.x = (e.clientX - r.left) / r.width - .5; goal.y = (e.clientY - r.top) / r.height - .5;
-      if (!raf) raf = requestAnimationFrame(tick);
-    }, { passive: true });
-    street.addEventListener('pointerleave', () => { goal.x = goal.y = 0; if (!raf) raf = requestAnimationFrame(tick); });
+    const tick = () => { cur.x += (goal.x - cur.x) * .08; cur.y += (goal.y - cur.y) * .08; stage.style.setProperty('--mx', cur.x.toFixed(4)); stage.style.setProperty('--my', cur.y.toFixed(4)); raf = Math.abs(goal.x - cur.x) + Math.abs(goal.y - cur.y) > .0005 ? requestAnimationFrame(tick) : 0; };
+    const hero = $('#hero');
+    hero.addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; const r = hero.getBoundingClientRect(); goal.x = ((e.clientX - r.left) / r.width - .5) * 2; goal.y = ((e.clientY - r.top) / r.height - .5) * 2; if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
+    hero.addEventListener('pointerleave', () => { goal.x = goal.y = 0; if (!raf) raf = requestAnimationFrame(tick); });
+    const main = stage.querySelector('.win.main');
+    addEventListener('scroll', () => { const p = Math.min(1, scrollY / (innerHeight * .8)); main.style.setProperty('--sp', p.toFixed(3)); main.style.translate = `0 ${(-p * 60).toFixed(1)}px`; main.style.scale = String(1 + p * .04); }, { passive: true });
   }
 
   // ---------- demo data (sample match, like the app's own preview data) ----------
@@ -137,7 +137,7 @@
       const rel = list.filter(r => !r.draft && /^v\d/.test(r.tag_name)).slice(0, 6);
       if (!rel.length) throw 0;
       const latest = rel[0].tag_name.replace(/^v/, '');
-      const hv = $("#heroVersion"); if (hv) hv.textContent = `version ${latest}`;
+      const hv = $("#heroVersion"); if (hv) hv.textContent = `Version ${latest}`; const hb = $("#heroBadge"); if (hb) hb.textContent = `Version ${latest} is out`;
       const plain = s => esc(String(s || '').replace(/\*\*/g, '').replace(/`/g, '').replace(/^[-*]\s+/gm, '').replace(/\r?\n+/g, ' ').trim());
       $('#notes').innerHTML = rel.map((r, i) => `<article class="note">${i === 0 ? '<span class="tag">LATEST</span>' : ''}<header><b>${esc(r.tag_name)}</b><time datetime="${r.published_at}">${new Date(r.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</time></header><p>${plain(r.body)}</p></article>`).join('');
       $$('.note').forEach(el => { el.classList.add('reveal'); io.observe(el); });
