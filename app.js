@@ -48,7 +48,7 @@
     });
     // nur schreiben, wenn sich der Wert wirklich ändert
     const memo = new WeakMap();
-    const put = (el, t, o) => { const m = memo.get(el) || {}; if (t !== undefined && m.t !== t) { el.style.transform = t; m.t = t; } if (o !== undefined) { const os = o.toFixed(3); if (m.o !== os) { el.style.opacity = os; el.style.visibility = o < .002 ? 'hidden' : ''; m.o = os; } } memo.set(el, m); };
+    const put = (el, t, o) => { const m = memo.get(el) || {}; if (t !== undefined && m.t !== t) { el.style.transform = t; m.t = t; } if (o !== undefined) { const os = o.toFixed(3); if (m.o !== os) { el.style.opacity = os; el.style.visibility = o < .002 ? 'hidden' : 'visible'; m.o = os; } } memo.set(el, m); };
     // Zeitplan (Anteil der Hero-Strecke)
     const T = { intro: [0, .12], apart: [.12, .26], steps: [.22, .37, .50, .63], len: .125, back: [.78, .84], zoom: [.84, .9], live: [.9, .96], out: [.96, 1] };
     let W = 1000, vw = 0, vh = 0, top0 = 0, span = 1, on = false, raf = 0, last = -1, navHidden = false, isLive = false;
