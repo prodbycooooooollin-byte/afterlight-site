@@ -24,24 +24,72 @@
 </header>
 
 <main id="top">
-  <!-- HERO: the app floats in front of the ritual circle from the game -->
-  <section class="hero" id="hero">
-    <div class="hero-bg" aria-hidden="true"><i class="slate"></i><i class="sigil"></i><i class="glow"></i></div>
-    <div class="hero-copy">
-      <a class="pill" href="#updates"><i></i><span id="heroBadge">Version 1.0 is out</span><b>See what's new</b></a>
-      <h1>Every match recorded.<br>Every highlight <em>found</em><span class="dot">.</span></h1>
-      <p class="sub">AFTERLIGHT records Deadlock in smooth 60&nbsp;fps, cuts your best moments into scored clips and explains every match afterwards. Free for Windows, made by players.</p>
-      <div class="cta-row">
-        <a class="btn" data-download href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4.5 10.5 3.4v8.1H3zm0 15 7.5 1.1v-8.1H3zM11.6 3.3 21 2v9.5h-9.4zm0 17.4L21 22v-9.4h-9.4z"/></svg>Download for Windows</a>
-        <a class="btn ghost" href="#counters">Find a counter now</a>
+  <!-- HERO + APP STORY: scroll takes the app window apart, shows its features and zooms into it.
+       All layers are cut from real screenshots of the app. Without motion (or on phones) it falls back to the static hero and a clickable tour. -->
+  <section class="hero xp" id="hero">
+    <div class="xp-sticky">
+      <div class="hero-bg" aria-hidden="true"><i class="slate"></i><i class="sigil"></i><i class="glow"></i></div>
+      <div class="hero-copy">
+        <a class="pill" href="#updates"><i></i><span id="heroBadge">Version 1.0 is out</span><b>See what's new</b></a>
+        <h1>Every match recorded.<br>Every highlight <em>found</em><span class="dot">.</span></h1>
+        <p class="sub">AFTERLIGHT records Deadlock in smooth 60&nbsp;fps, cuts your best moments into scored clips and explains every match afterwards. Free for Windows, made by players.</p>
+        <div class="cta-row">
+          <a class="btn magnetic" data-download href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4.5 10.5 3.4v8.1H3zm0 15 7.5 1.1v-8.1H3zM11.6 3.3 21 2v9.5h-9.4zm0 17.4L21 22v-9.4h-9.4z"/></svg>Download for Windows</a>
+          <a class="btn ghost magnetic" href="#counters">Find a counter now</a>
+        </div>
+        <p class="fine"><span id="heroVersion">Latest version</span> · Windows 10 and 11 · Not affiliated with Valve</p>
       </div>
-      <p class="fine"><span id="heroVersion">Latest version</span> · Windows 10 and 11 · Not affiliated with Valve</p>
-    </div>
-    <div class="hero-stage" id="stage" aria-hidden="true">
-      <figure class="win main"><img src="assets/shots/profile.jpg" alt="" decoding="async"></figure>
-      <div class="float f1"><span class="cs-badge"><b>Legendary</b><i>350</i></span><small>Clip saved · Triple kill</small></div>
-      <div class="float f2"><img src="assets/heroes/13.png" alt=""><span><b>AFTERLIGHT</b><small>Won as Haze · 14/4/9</small></span></div>
-      <div class="float f3"><small>Soul lead</small><b>+11.4k</b><svg viewBox="0 0 120 34" preserveAspectRatio="none"><path d="M0 30 C20 28 30 32 45 24 S70 12 85 16 105 4 120 3"/></svg></div>
+
+      <!-- Feature captions, shown one after another while the layers are apart -->
+      <ol class="xp-captions" aria-label="What AFTERLIGHT shows you">
+        <li data-step="0"><span class="kick gold">Your profile</span><h3>Your whole Deadlock career on one screen.</h3><p>Rank, win rate, KDA, souls per minute and your AFTERLIGHT rating, plus every match with its result, items and clips.</p></li>
+        <li data-step="1"><span class="kick gold">Clips</span><h3>Every kill clipped. Every clip scored.</h3><p>Smooth 60 fps recordings with game sound. Kills, multi-kills and clutches become clips by themselves, rated from Okay to Legendary.</p></li>
+        <li data-step="2"><span class="kick blue">Match review</span><h3>Understand why the match went the way it did.</h3><p>Highlights, the soul lead over time, your lane duel and your rank in the lobby for every stat.</p></li>
+        <li data-step="3"><span class="kick red">Heroes</span><h3>Know every hero before you pick it.</h3><p>All 44 heroes with their art from the game, matchups, win rates by rank and the shop exactly like in Deadlock.</p></li>
+      </ol>
+
+      <div class="xp-stage" id="stage">
+        <div class="xp-win" id="xpWin">
+          <img class="xp-base" src="assets/shots/profile.jpg" alt="AFTERLIGHT profile page" decoding="async">
+          <!-- real interface parts of the profile page, floating apart in depth -->
+          <i class="xp-layer" data-r="0,0,92,920" data-z="40" data-o="-90,0"></i>
+          <i class="xp-layer" data-r="108,52,580,262" data-z="190" data-o="-40,-70"></i>
+          <i class="xp-layer" data-r="1010,44,452,330" data-z="120" data-o="70,-60"></i>
+          <i class="xp-layer" data-r="126,315,478,46" data-z="230" data-o="-20,-20"></i>
+          <i class="xp-layer" data-r="124,372,1306,122" data-z="300" data-o="0,0" data-f="0"></i>
+          <i class="xp-layer" data-r="124,500,888,420" data-z="150" data-o="-30,60" data-f="0"></i>
+          <i class="xp-layer" data-r="1026,506,404,238" data-z="260" data-o="60,30"></i>
+          <i class="xp-layer" data-r="1026,756,404,164" data-z="200" data-o="70,80"></i>
+          <!-- other app pages that step forward during the feature tour -->
+          <img class="xp-screen" data-f="1" src="assets/shots/clips.jpg" alt="" loading="lazy" decoding="async">
+          <img class="xp-screen" data-f="2" src="assets/shots/review.jpg" alt="" loading="lazy" decoding="async">
+          <img class="xp-screen" data-f="3" src="assets/shots/heroes-select.jpg" alt="" loading="lazy" decoding="async">
+          <!-- inside the app: real pages, the sidebar works -->
+          <div class="xp-demo" id="xpDemo" aria-label="Interactive tour of the app">
+            <img class="xp-demo-img on" data-screen="profile" src="assets/shots/profile.jpg" alt="Profile page" decoding="async">
+            <img class="xp-demo-img" data-screen="heroes" src="assets/shots/heroes-select.jpg" alt="Hero select" loading="lazy" decoding="async">
+            <img class="xp-demo-img" data-screen="live" src="assets/shots/live.jpg" alt="Live match" loading="lazy" decoding="async">
+            <img class="xp-demo-img" data-screen="library" src="assets/shots/shelf.jpg" alt="Library" loading="lazy" decoding="async">
+            <img class="xp-demo-img" data-screen="clips" src="assets/shots/clips.jpg" alt="Clips" loading="lazy" decoding="async">
+            <nav class="xp-hot" aria-label="App sidebar">
+              <button data-go="profile" style="top:8.9%" aria-label="Profile"></button>
+              <button data-go="heroes" style="top:16.3%" aria-label="Heroes"></button>
+              <button data-go="live" style="top:23.7%" aria-label="Live"></button>
+              <button data-go="library" style="top:31.1%" aria-label="Library"></button>
+              <button data-go="clips" style="top:38.5%" aria-label="Clips"></button>
+            </nav>
+          </div>
+        </div>
+        <div class="float f1"><span class="cs-badge"><b>Legendary</b><i>350</i></span><small>Clip saved · Triple kill</small></div>
+        <div class="float f2"><img src="assets/heroes/13.png" alt=""><span><b>AFTERLIGHT</b><small>Won as Haze · 14/4/9</small></span></div>
+        <div class="float f3"><small>Soul lead</small><b>+11.4k</b><svg viewBox="0 0 120 34" preserveAspectRatio="none"><path d="M0 30 C20 28 30 32 45 24 S70 12 85 16 105 4 120 3"/></svg></div>
+      </div>
+
+      <div class="xp-inside" aria-hidden="true"><b>You're inside AFTERLIGHT</b><span>Click the sidebar to switch pages · keep scrolling to step back out</span></div>
+      <div class="xp-scroll" aria-hidden="true"><i></i><span>Scroll</span></div>
+      <div class="xp-chips" role="group" aria-label="Switch app page">
+        <button data-go="profile" class="on">Profile</button><button data-go="heroes">Heroes</button><button data-go="live">Live</button><button data-go="library">Library</button><button data-go="clips">Clips</button>
+      </div>
     </div>
   </section>
 
@@ -137,7 +185,7 @@
   <section class="final reveal">
     <svg class="final-mark" viewBox="0 0 100 100" aria-hidden="true"><path fill-rule="evenodd" d="M60.6 2C65.3 41.8 69 44.5 95.2 40.9C70.8 50.2 69.9 53.6 78.4 65.8C64.7 57.9 57.6 61.6 4.8 98C50.2 53.9 53.8 48.4 36.7 35C56.5 43.5 59.4 41.7 60.6 2ZM44 65.1Q65.8 53.9 71 42.4Q61.7 49 44 65.1Z"/></svg>
     <h2>Your next match records itself<span class="dot">.</span></h2>
-    <div class="cta-row"><a class="btn" data-download href="#">Download for Windows</a><a class="btn ghost" href="https://discord.gg/nSWygtFfjM" target="_blank" rel="noopener">Join the Discord</a></div>
+    <div class="cta-row"><a class="btn magnetic" data-download href="#">Download for Windows</a><a class="btn ghost magnetic" href="https://discord.gg/nSWygtFfjM" target="_blank" rel="noopener">Join the Discord</a></div>
     <p class="fine">Free for Windows 10 and 11. The setup takes two clicks.</p>
   </section>
 </main>
