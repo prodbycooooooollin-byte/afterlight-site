@@ -51,17 +51,21 @@
     const put = (el, t, o) => { const m = memo.get(el) || {}; if (t !== undefined && m.t !== t) { el.style.transform = t; m.t = t; } if (o !== undefined) { const os = o.toFixed(3); if (m.o !== os) { el.style.opacity = os; el.style.visibility = o < .002 ? 'hidden' : 'visible'; m.o = os; } } memo.set(el, m); };
     // Zeitplan (Anteil der Hero-Strecke)
     const T = { intro: [0, .12], apart: [.12, .26], steps: [.22, .37, .50, .63], len: .125, back: [.78, .84], zoom: [.84, .9], live: [.9, .96], out: [.96, 1] };
-    let W = 1000, vw = 0, vh = 0, top0 = 0, span = 1, on = false, raf = 0, last = -1, navHidden = false, isLive = false;
+    let W = 1000, vw = 0, vh = 0, top0 = 0, span = 1, on = false, raf = 0, last = -1, ps = -1, tPrev = 0, navHidden = false, isLive = false;
     const mouse = { x: 0, y: 0, gx: 0, gy: 0 };
     const measure = () => { vw = innerWidth; vh = innerHeight; W = Math.round(Math.min(1180, vw * .62, vh * 1.02)); hero.style.setProperty('--W', `${W}px`); top0 = hero.offsetTop; span = Math.max(1, hero.offsetHeight - vh); last = -1; };
     const frame = () => {
       raf = 0;
       mouse.x += (mouse.gx - mouse.x) * .1; mouse.y += (mouse.gy - mouse.y) * .1;
       const moving = Math.abs(mouse.gx - mouse.x) + Math.abs(mouse.gy - mouse.y) > .002;
-      const p = clamp((scrollY - top0) / span);
-      if (p === last && !moving) return;
+      // Fortschritt weich nachziehen: ohne weiches Scrollen (Windows-Animationen aus) springt das Mausrad 100 px pro Klick
+      const target = clamp((scrollY - top0) / span), now = performance.now(), dt = Math.min(64, now - (tPrev || now - 16)); tPrev = now;
+      if (ps < 0 || Math.abs(target - ps) > .35) ps = target; else ps += (target - ps) * (1 - Math.exp(-dt / 95));
+      if (Math.abs(target - ps) < .0004) ps = target;
+      const settling = ps !== target, p = ps;
+      if (p === last && !moving && !settling) { tPrev = 0; return; }
       last = p;
-      if (p >= 1 && !moving) { if (navHidden) { nav.classList.remove('xp-hide'); navHidden = false; } return; } // Hero ist durch, nichts mehr zu tun
+      if (p >= 1 && !moving && !settling) { if (navHidden) { nav.classList.remove('xp-hide'); navHidden = false; } return; } // Hero ist durch, nichts mehr zu tun
       const intro = ease(seg(p, ...T.intro)), back = ease(seg(p, ...T.back)), zoom = ease(seg(p, ...T.zoom)), out = ease(seg(p, ...T.out));
       const apart = ease(seg(p, ...T.apart)) * (1 - back), k = W / 1000, H = W * .6216;
       // Schritte 1-4 jeweils mit weichem Ein- und Ausblenden
@@ -100,7 +104,7 @@
       if (live !== isLive) { isLive = live; demo.classList.toggle('live', live); chips.classList.toggle('live', live); }
       const hide = p > T.zoom[0] + .02 && p < T.live[1] + .005;
       if (hide !== navHidden) { navHidden = hide; nav.classList.toggle('xp-hide', hide); }
-      if (moving) raf = requestAnimationFrame(frame);
+      if (moving || settling) raf = requestAnimationFrame(frame); else tPrev = 0;
     };
     const kick = () => { if (on && !raf) raf = requestAnimationFrame(frame); };
     const clear = () => { [win, dim, copy, cue, bg, demo, inside, chips, rail, ...floats, ...layers.map(l => l.el), ...screens, ...caps, ...bars].forEach(el => { if (el) { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; memo.delete(el); } }); nav.classList.remove('xp-hide'); demo.classList.remove('live'); chips.classList.remove('live'); navHidden = isLive = false; };
