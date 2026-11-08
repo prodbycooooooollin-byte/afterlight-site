@@ -95,7 +95,7 @@
     const kick = () => { if (on && !raf) raf = requestAnimationFrame(frame); };
     const clear = () => { ['--t', '--bb', '--bs'].forEach(v => win.style.removeProperty(v)); copy.style.removeProperty('--co'); copy.style.removeProperty('--cy'); copy.style.visibility = ''; if (sigil) sigil.style.scale = ''; $('#nav').classList.remove('xp-hide'); demo.classList.remove('live'); chips.classList.remove('live'); };
     const mode = () => {
-      on = !calm && wide.matches;
+      on = wide.matches; // bewegt sich nur durch eigenes Scrollen, deshalb auch bei reduzierter Bewegung an
       document.documentElement.classList.toggle('xp-on', on);
       if (on) { measure(); kick(); } else clear();
     };
