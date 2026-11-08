@@ -6,7 +6,7 @@
 <title>AFTERLIGHT · Deadlock companion</title>
 <meta name="description" content="Free Deadlock companion for Windows: smooth 60 fps clips with sound, match reviews, hero stats, a Deadlock-style shop and a live board.">
 <link rel="icon" href="assets/icon.png">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
         <p class="sub">AFTERLIGHT records Deadlock in smooth 60&nbsp;fps, cuts your best moments into scored clips and explains every match afterwards. Free for Windows, made by players.</p>
         <div class="cta-row">
           <a class="btn magnetic" data-download href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4.5 10.5 3.4v8.1H3zm0 15 7.5 1.1v-8.1H3zM11.6 3.3 21 2v9.5h-9.4zm0 17.4L21 22v-9.4h-9.4z"/></svg>Download for Windows</a>
-          <a class="btn ghost magnetic" href="#counters">Find a counter now</a>
+          <a class="btn ghost magnetic" href="#features">See what it does</a>
         </div>
         <p class="fine"><span id="heroVersion">Latest version</span> · Windows 10 and 11 · Not affiliated with Valve</p>
       </div>
@@ -50,7 +50,7 @@
 
       <div class="xp-stage" id="stage">
         <div class="xp-win" id="xpWin">
-          <img class="xp-base" src="assets/shots/profile.jpg" alt="AFTERLIGHT profile page" decoding="async">
+          <img class="xp-base" src="assets/shots/profile.jpg" alt="AFTERLIGHT profile page" decoding="async"><i class="xp-dim"></i>
           <!-- real interface parts of the profile page, floating apart in depth -->
           <i class="xp-layer" data-r="0,0,92,920" data-z="40" data-o="-90,0"></i>
           <i class="xp-layer" data-r="108,52,580,262" data-z="190" data-o="-40,-70"></i>
@@ -86,7 +86,7 @@
       </div>
 
       <div class="xp-inside" aria-hidden="true"><b>You're inside AFTERLIGHT</b><span>Click the sidebar to switch pages · keep scrolling to step back out</span></div>
-      <div class="xp-scroll" aria-hidden="true"><i></i><span>Scroll</span></div>
+      <div class="xp-scroll" aria-hidden="true"><span class="xp-stack"><i></i><i></i><i></i></span><span class="xp-cue">Scroll to take it apart</span></div>
       <div class="xp-chips" role="group" aria-label="Switch app page">
         <button data-go="profile" class="on">Profile</button><button data-go="heroes">Heroes</button><button data-go="live">Live</button><button data-go="library">Library</button><button data-go="clips">Clips</button>
       </div>
@@ -150,18 +150,6 @@
     </div>
   </section>
 
-  <!-- COUNTER FINDER: live data from the Deadlock API -->
-  <section class="cf" id="counters">
-    <header class="sec-head reveal"><span class="kick">Try it right here</span><h2>Who beats the hero you're facing<span class="dot">?</span></h2><p>Pick the enemy hero. You get the heroes that win most often against it, live from the Deadlock API over the last 30 days. In the app you get this for every hero, with laning, items and builds.</p></header>
-    <div class="cf-box reveal">
-      <div class="cf-pick">
-        <label class="cf-search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/></svg><input id="cfSearch" type="search" placeholder="Search a hero" aria-label="Search a hero"></label>
-        <div class="cf-grid" id="cfGrid" role="listbox" aria-label="Enemy hero"></div>
-      </div>
-      <div class="cf-result" id="cfResult" aria-live="polite"><p class="cf-note">Loading live matchups …</p></div>
-    </div>
-  </section>
-
   <!-- PATCH NOTES -->
   <section class="updates" id="updates">
     <header class="sec-head reveal"><span class="kick">Updates</span><h2>What changed lately<span class="dot">.</span></h2><p>The app installs updates by itself, nothing to do for you.</p></header>
@@ -195,6 +183,6 @@
   <nav aria-label="Legal"><a href="https://discord.gg/nSWygtFfjM" target="_blank" rel="noopener">Discord</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://github.com/prodbycooooooollin-byte/afterlight-releases/releases" rel="noopener">All releases</a></nav>
 </footer>
 
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
