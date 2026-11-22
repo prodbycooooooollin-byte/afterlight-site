@@ -504,3 +504,72 @@ html::-webkit-scrollbar-thumb:hover{border-width:2px}
   .xp-chips button{padding:0 11px;font-size:12.5px}
 }
 @media (prefers-reduced-motion:reduce){.xp-win{transform:none}.btn{translate:none}.xp-stack i,.xp-cue::after{animation:none}}
+
+/* ---------- Funktionen als asymmetrisches Raster: große und kleine Karten, Screenshot oben, Text unten ---------- */
+.fx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:var(--max);margin:0 auto;padding:0 24px}
+.fx-card{position:relative;display:grid;grid-template-rows:auto 1fr;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#17171a,#121214);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);transition:box-shadow .3s,transform .4s var(--ease)}
+.fx-card.wide{grid-column:span 2}
+.fx-card figure{position:relative;margin:0;height:260px;overflow:hidden;background:#0c0c0e;border-bottom:1px solid rgba(255,255,255,.06)}
+.fx-card figure img{width:100%;height:100%;object-fit:cover;object-position:0 0;transition:transform .9s var(--ease)}
+.fx-card.wide figure{height:300px}
+.fx-card:hover{box-shadow:inset 0 0 0 1px rgba(242,193,78,.35);transform:translateY(-3px)}
+.fx-card:hover figure img{transform:scale(1.03)}
+.fx-copy{display:grid;align-content:start;gap:10px;padding:22px 24px 24px}
+.fx-copy h3{font:650 22px/1.2 var(--display);letter-spacing:-.02em;margin:0}
+.fx-copy p{color:var(--ink-2);font-size:15px;line-height:1.55;max-width:56ch;margin:0}
+.fx-copy .ticks{margin-top:4px}
+
+/* ---------- Schluss-Band in Markengold über die volle Breite ---------- */
+.band{margin:140px 0 0;background:var(--gold);color:#16120a}
+.band-in{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;max-width:var(--max);margin:0 auto;padding:84px 24px}
+.band h2{font:750 clamp(38px,4.6vw,64px)/1.02 var(--display);letter-spacing:-.035em;color:#16120a;margin:0;max-width:14ch}
+.band-side{display:grid;gap:22px;padding-top:18px;border-top:2px solid rgba(22,18,10,.85)}
+.band-side p{font-size:16px;line-height:1.55;color:rgba(22,18,10,.78);margin:0;max-width:44ch}
+.btn.dark{background:#16120a;color:var(--gold);box-shadow:none}
+.btn.dark:hover{background:#000;color:var(--gold-hi)}
+.btn.line{background:none;color:#16120a;box-shadow:inset 0 0 0 1.5px rgba(22,18,10,.85)}
+.btn.line:hover{background:rgba(22,18,10,.08)}
+.btn.line::after{display:none}
+
+/* ---------- Fußzeile in Spalten ---------- */
+.foot{display:grid!important;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:40px;max-width:var(--max);margin:0 auto!important;padding:56px 24px 64px!important;border-top:0!important}
+.foot-brand{display:grid;gap:14px;max-width:440px}
+.foot-brand p{font-size:13px;line-height:1.6;color:var(--muted)}
+.foot nav{display:grid!important;align-content:start;gap:10px!important}
+.foot nav b{font:600 13px/1 var(--text);color:var(--ink);margin-bottom:6px}
+.foot nav a{font-size:14px;color:var(--muted)}
+.foot nav a:hover{color:var(--ink)}
+
+@media (max-width:900px){
+  .fx{grid-template-columns:1fr}.fx-card.wide{grid-column:auto}.fx-card figure,.fx-card.wide figure{height:220px}
+  .band-in{grid-template-columns:1fr;gap:28px;padding:64px 24px}
+  .foot{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}
+}
+@media (max-width:520px){.foot{grid-template-columns:1fr}}
+.features .fx{padding:0;margin-top:8px}
+
+/* ---------- Kopf: Heldenwand ---------- */
+.hb{position:relative;min-height:100vh;display:grid;align-items:center;overflow:hidden;padding:130px 0 90px}
+.hb-wall{position:absolute;inset:-30% -20%;display:grid;grid-template-columns:repeat(11,1fr);gap:10px;transform:rotate(-9deg);opacity:.5;filter:grayscale(.85) brightness(.55)}
+.hb-wall img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px}
+.hb::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--bg) 22%,rgba(10,10,11,.86) 48%,rgba(10,10,11,.35) 80%,rgba(10,10,11,.6)),linear-gradient(0deg,var(--bg),transparent 30%),linear-gradient(180deg,var(--bg),transparent 22%)}
+.hb-in{position:relative;z-index:2;width:100%;max-width:var(--max);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+.hb-copy{display:grid;gap:24px;justify-items:start}
+.hb .eyebrow{font:600 13px var(--text);color:var(--gold)}
+.hb h1{font:750 clamp(48px,6vw,92px)/.95 var(--display);letter-spacing:-.05em}
+.hb h1 em{font-style:normal;color:var(--gold)}
+.hb p.sub{max-width:48ch;font-size:18px;line-height:1.55;color:var(--ink-2)}
+.hb-card{justify-self:end;width:min(440px,100%);border-radius:14px;overflow:hidden;background:#121214;box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),0 40px 100px rgba(0,0,0,.6)}
+.hb-card .art{position:relative;height:230px;overflow:hidden;background:radial-gradient(70% 90% at 60% 30%,rgba(242,193,78,.28),transparent 70%),#151517}
+.hb-card .art img{position:absolute;right:-6%;bottom:-18%;height:135%;max-width:none}
+.hb-card .res{position:absolute;left:18px;bottom:16px;display:grid;gap:4px}
+.hb-card .res small{font:600 12px var(--text);color:var(--ink-2)}
+.hb-card .res b{font:750 40px/1 var(--display);letter-spacing:-.04em;color:var(--good)}
+.hb-card .row{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.07)}
+.hb-card .row div{display:grid;gap:5px;padding:14px 18px}
+.hb-card .row div+div{box-shadow:inset 1px 0 0 rgba(255,255,255,.07)}
+.hb-card .row small{font:500 12px var(--text);color:var(--muted)}
+.hb-card .row b{font:650 20px/1 var(--display);font-variant-numeric:tabular-nums}
+.hb-card .clip{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-top:1px solid rgba(255,255,255,.07)}
+.hb-card .clip span{font:500 13px var(--text);color:var(--ink-2)}
+@media (max-width:900px){.hb-in{grid-template-columns:1fr}.hb-card{justify-self:start}.hb-wall{grid-template-columns:repeat(6,1fr)}}

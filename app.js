@@ -10,7 +10,7 @@
   const DOWNLOAD_PAUSED = false;
   if (DOWNLOAD_PAUSED) {
     $$('[data-download]').forEach(a => { a.removeAttribute('href'); a.classList.add('paused'); a.setAttribute('aria-disabled', 'true'); a.lastChild.textContent = a.classList.contains('small') ? 'Paused' : 'Download paused'; });
-    $$('.hero-copy .fine, .final .fine').forEach(p => { p.textContent = 'The download is paused for a short update. Check back in a little while.'; p.classList.add('paused-note'); });
+    $('.hero-copy .fine, .hb-copy .fine, .band .fine').forEach(p => { p.textContent = 'The download is paused for a short update. Check back in a little while.'; p.classList.add('paused-note'); });
   } else $$('[data-download]').forEach(a => { a.href = SETUP; a.setAttribute('download', ''); });
   const nav = $('#nav'); const onScroll = () => nav.classList.toggle('solid', scrollY > 20); onScroll(); addEventListener('scroll', onScroll, { passive: true });
   // Einblenden beim Scrollen: jedes .reveal-Element einmal, wenn es zu sehen ist
@@ -108,7 +108,8 @@
     };
     const kick = () => { if (on && !raf) raf = requestAnimationFrame(frame); };
     const clear = () => { [win, dim, copy, cue, bg, demo, inside, chips, rail, ...floats, ...layers.map(l => l.el), ...screens, ...caps, ...bars].forEach(el => { if (el) { el.style.transform = ''; el.style.opacity = ''; el.style.visibility = ''; memo.delete(el); } }); nav.classList.remove('xp-hide'); demo.classList.remove('live'); chips.classList.remove('live'); navHidden = isLive = false; };
-    const mode = () => { on = wide.matches; document.documentElement.classList.toggle('xp-on', on); if (on) { measure(); kick(); } else clear(); };
+    // Scroll-Zerlegung abgeschaltet (Wunsch): der Hero bleibt ein ruhiges App-Fenster mit klickbarer Tour
+    const mode = () => { on = false; document.documentElement.classList.toggle('xp-on', on); if (on) { measure(); kick(); } else clear(); };
     addEventListener('scroll', kick, { passive: true });
     addEventListener('resize', () => { if (on) { measure(); kick(); } }, { passive: true });
     addEventListener('load', () => { if (on) { measure(); kick(); } });
@@ -120,6 +121,10 @@
     if (/[?&]motion/.test(location.search)) { window.__xpFrame = frame; const q = /[?&]xp=([\d.]+)/.exec(location.search); if (q) addEventListener("load", () => { measure(); scrollTo(0, top0 + +q[1] * span); last = -1; frame(); }); } // nur zum Testen
     mode();
   }
+
+  // Kopf: alle Helden als Wand (Reihenfolge wie in heroes.json, zweimal, damit die schräge Fläche voll ist)
+  const wall = $('#heroWall');
+  if (wall) fetch('heroes.json').then(r => r.json()).then(n => { const ids = Object.keys(n); wall.innerHTML = Array.from({ length: 88 }, (_, i) => `<img src="assets/h/h${ids[i % ids.length]}.webp" alt="" loading="lazy" decoding="async">`).join(''); }).catch(() => {});
 
   // ---------- motion ----------
   if (!calm) {
